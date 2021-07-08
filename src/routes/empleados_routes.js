@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 
 	const ID_empleado = req.params.id;
 
-	const sql = 'SELECT * FROM t_empleado WHERE ID_empleado = ?';
+	const sql = 'SELECT * FROM empleados WHERE ID_empleado = ?';
 
 	connection.query(sql, [ID_empleado], (err, result) => {
 		if (err) {
@@ -41,16 +41,16 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	const sql =
-		'INSERT INTO t_empleado(nombre_empleado, apellido_empleado, mail_empleado, password_empleado) VALUES(?, ?, ?, ?)';
+		'INSERT INTO empleados(nombreEmpleado, apellidoEmpleado, emailEmpleado, passwordEmpleado) VALUES(?, ?, ?, ?)';
 
-	const nombre_empleado = req.body.nombre_empleado;
-	const apellido_empleado = req.body.apellido_empleado;
-	const mail_empleado = req.body.mail_empleado;
-	const password_empleado = req.body.password_empleado;
+	const nombreEmpleado = req.body.nombreEmpleado;
+	const apellidoEmpleado = req.body.apellidoEmpleado;
+	const emailEmpleado = req.body.emailEmpleado;
+	const passwordEmpleado = req.body.passwordEmpleado;
 
 	connection.query(
 		sql,
-		[nombre_empleado, apellido_empleado, mail_empleado, password_empleado],
+		[nombreEmpleado, apellidoEmpleado, emailEmpleado, passwordEmpleado],
 		(err, result) => {
 			if (err) {
 				res.send('error al obtener los datos');
@@ -65,21 +65,21 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
 	const sql =
-		'UPDATE t_empleado SET nombre_empleado=?, apellido_empleado=?, mail_empleado=?, password_empleado=? WHERE ID_empleado=?';
+		'UPDATE empleados SET nombreEmpleado=?, apellidoEmpleado=?, mailEmpleado=?, passwordEmpleado=? WHERE ID_empleado=?';
 
-	const nombre_empleado = req.body.nombre_empleado;
-	const apellido_empleado = req.body.apellido_empleado;
-	const mail_empleado = req.body.mail_empleado;
-	const password_empleado = req.body.password_empleado;
+	const nombreEmpleado = req.body.nombreEmpleado;
+	const apellidoEmpleado = req.body.apellidoEmpleado;
+	const emailEmpleado = req.body.emailEmpleado;
+	const passwordEmpleado = req.body.passwordEmpleado;
 	const ID_empleado = req.params.id;
 
 	connection.query(
 		sql,
 		[
-			nombre_empleado,
-			apellido_empleado,
-			mail_empleado,
-			password_empleado,
+			nombreEmpleado,
+			apellidoEmpleado,
+			emailEmpleado,
+			passwordEmpleado,
 			ID_empleado,
 		],
 		(err, result) => {
@@ -99,7 +99,7 @@ router.delete('/:id', (req, res) => {
 
 	const ID_empleado = req.params.id;
 
-	const sql = 'DELETE FROM t_empleado WHERE ID_empleado=?';
+	const sql = 'DELETE FROM empleados WHERE ID_empleado=?';
 
 	connection.query(sql, [ID_empleado], (err, result) => {
 		if (err) {

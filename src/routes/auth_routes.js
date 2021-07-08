@@ -2,21 +2,33 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../connection');
 
+router.get('/check', (req, res) => {
+	if (req.session.user) {
+		res.json({ message: 'OK', data: req.session.user });
+	} else {
+		res.json({ message: 'usuarion no logueado' });
+	}
+});
+
 // Iniciar Sesion
 router.post('/', (req, res) => {
-	console.log(req.body);
+	console.log(req.session.user);
 
-	const sql =
-		'SELECT * FROM t_empleado WHERE mail_empleado = ? AND password_empleado = ?';
+	const sql = `SELECT * 
+				FROM empleados 
+				WHERE emailEmpleado = ? 
+				AND passwordEmpleado = ?`;
+
 	connection.query(sql, [req.body.email, req.body.password], (err, result) => {
 		if (err) {
 			console.log('Error al verificar el usuario');
 		} else {
 			if (result.length === 1) {
 				console.log(result);
-				const usuarioLogueado = `${result[0].nombre_empleado} ${result[0].apellido_empleado}`;
+				const usuarioLogueado = `${result[0].nombreEmpleado} ${result[0].apellidoEmpleado}`;
 				req.session.user = {
 					Usuario: usuarioLogueado,
+					id: result[0].ID_empleado,
 				};
 				console.log(req.session.user);
 				res

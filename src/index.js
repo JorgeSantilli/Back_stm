@@ -5,7 +5,7 @@ const session = require('express-session');
 
 //Rutas
 // const t_pasajeros_routes = require("./routes/t_pasajeros_routes");
-const t_empleado_routes = require('./routes/t_empleado_routes');
+const empleados_routes = require('./routes/empleados_routes');
 const authRoutes = require('./routes/auth_routes');
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(
 app.use(express.json());
 app.use(express.static('public'));
 //app.use("/t_pasajeros", t_pasajeros_routes);
-app.use('/t_empleado', t_empleado_routes);
+app.use('/empleados', empleados_routes);
 app.use('/auth', authRoutes);
 
 app.listen(8000, () => {
