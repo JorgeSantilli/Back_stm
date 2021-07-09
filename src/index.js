@@ -4,11 +4,11 @@ const connection = require('./connection');
 const session = require('express-session');
 
 //Rutas
-// const t_pasajeros_routes = require("./routes/t_pasajeros_routes");
+const servicios_routes = require('./routes/servicios_routes');
 const empleados_routes = require('./routes/empleados_routes');
 const authRoutes = require('./routes/auth_routes');
 const app = express();
-
+app.use(express.static('public'));
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 app.use(
@@ -21,7 +21,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.static('public'));
-//app.use("/t_pasajeros", t_pasajeros_routes);
+app.use('/servicios', servicios_routes);
 app.use('/empleados', empleados_routes);
 app.use('/auth', authRoutes);
 
