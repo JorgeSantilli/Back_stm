@@ -29,4 +29,25 @@ router.get('/:id', (req, res) => {
 	});
 });
 
+router.post('/', (req, res) => {
+	const sql =
+		'INSERT INTO servicios(nombreServicio, detalleServicio, CostoPorPersonaServicio ) VALUES(?, ?, ?)';
+
+	const nombreServicio = req.body.nombreServicio;
+	const detalleServicio = req.body.detalleServicio;
+	const CostoPorPersonaServicio = req.body.precioServicio;
+
+	connection.query(
+		sql,
+		[nombreServicio, detalleServicio, CostoPorPersonaServicio],
+		(err, result) => {
+			if (err) {
+				res.send('error al obtener los datos');
+			} else {
+				res.send('Usuario agregado');
+			}
+		}
+	);
+});
+
 module.exports = router;
